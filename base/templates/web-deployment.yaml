@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: words-web-deploy
+  labels:
+    app: words-web
+spec:
+  selector:
+    matchLabels:
+      app: words-web
+  template:
+    metadata:
+      labels:
+        app: words-web
+    spec:
+      containers:
+      - name: words-web
+        image: registry.ocplab.cn/demo/k8s-words-web:v1.0
+        env:
+          - name: WORDS_API_SERVICE
+            value: words-api-svc
+        ports:
+        - containerPort: 80
+          name: words-web
